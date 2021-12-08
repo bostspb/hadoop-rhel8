@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+<property>
+    <name>hive.server2.enable.doAs</name>
+    <value>FALSE</value>
+    <description/>
+</property>
+
+<property>
+    <name>hive.metastore.schema.verification</name>
+    <value>FALSE</value>
+    <description/>
+</property>
+
+<property>
+    <name>javax.jdo.option.ConnectionURL</name>
+    <value>jdbc:postgresql://postgres/hive</value>
+</property>
+
+<property>
+    <name>javax.jdo.option.ConnectionDriverName</name>
+    <value>org.postgresql.Driver</value>
+</property>
+
+<property>
+    <name>javax.jdo.option.ConnectionUserName</name>
+    <value>metastore</value>
+</property>
+
+<property>
+    <name>javax.jdo.option.ConnectionPassword</name>
+    <value>C9EJuMLvjWpo</value>
+</property>
+
+<property>
+    <name>hive.metastore.uris</name>
+    <value>thrift://localhost:9083</value>
+</property>
+
+</configuration>

@@ -1,0 +1,4 @@
+{
+    "HIVE_METASTORE_URIS": "thrift://localhost:9083",
+    "PYSPARK_APP_HOME": "/home/hduser/share/spark"
+}

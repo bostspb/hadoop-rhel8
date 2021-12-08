@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hadoop-app
+  namespace: hadoop
+spec:
+  selector:
+    matchLabels:
+      app: hadoop-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: hadoop-app
+    spec:
+      containers:
+        - name: hadoop-app
+          image: 'chernyakzv/hadoop-rhel8:1.02'
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: '1'
+              memory: 1Gi
+            limits:
+              cpu: '4'
+              memory: 8Gi

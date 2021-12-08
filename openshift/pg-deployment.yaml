@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pg-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pg-app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: pg-app
+    spec:
+      containers:
+      - image: postgres:9.6
+        name: postgres
+        env:
+        - name: POSTGRES_USER
+          value: "metastore"
+        - name: POSTGRES_DB
+          value: "airflow"
+        - name: PGDATA
+          value: "/var/lib/postgresql/data/pgdata"
+        - name: POSTGRES_PASSWORD
+          value: "C9EJuMLvjWpo"
+        ports:
+        - containerPort: 5432
+          protocol: TCP
+        resources:
+          requests:
+            cpu: 500m
+            memory: 500Mi
+          limits:
+            cpu: 1
+            memory: 2Gi
+        volumeMounts:
+        - name: initdb
+          mountPath: /docker-entrypoint-initdb.d
+        - name: data
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: initdb
+        configMap:
+          name: create-hive-db
+      - name: data
+        persistentVolumeClaim:
+          claimName: pg-storage

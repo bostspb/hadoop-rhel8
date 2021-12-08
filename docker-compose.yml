@@ -1,0 +1,38 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:9.6
+    environment:
+      POSTGRES_DB: "airflow"
+      POSTGRES_USER: "metastore"
+      POSTGRES_PASSWORD: "C9EJuMLvjWpo"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ./postgres-entrypoint:/docker-entrypoint-initdb.d
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U metastore -d airflow" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+  hadoop:
+    depends_on:
+      - postgres
+    build:
+      context: .
+      target: local-env
+    ports:
+      - 10000:10000
+      - 8088:8088
+      - 8080:8080
+    volumes:
+      - ../dags:/home/hduser/airflow/dags
+      - ../spark:/home/hduser/share/spark
+      - ../sql:/home/hduser/share/sql
+    restart: unless-stopped
+volumes:
+  postgres: {}

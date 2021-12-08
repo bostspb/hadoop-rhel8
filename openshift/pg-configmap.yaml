@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: create-hive-db
+  namespace: hadoop
+data:
+  create_hive_db.sql: |
+    CREATE DATABASE hive;

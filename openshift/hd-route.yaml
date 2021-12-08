@@ -1,0 +1,13 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: hadoop-route
+  namespace: hadoop
+spec:
+  host: hadoop.mydev
+  path: /
+  to:
+    kind: Service
+    name: hadoop
+  port:
+    targetPort: 8080
